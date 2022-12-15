@@ -64,15 +64,6 @@ class LoginPage(BasePage):
         if email_placeholder != "Enter Email":
             logger.error(f"incorrect email_placeholder text: {email_placeholder}")
             raise AssertionError
-        if password_placeholder != "Eпter password":
+        if password_placeholder != "Enter password":
             logger.error(f"incorrect password_placeholder text: {password_placeholder}")
             raise AssertionError
-
-    def password_is_invisible(self):
-        if self.is_element_present(*LoginPageLocators.PASSWORD_NOT_VISIBLE):
-            assert self.is_element_present(*LoginPageLocators.PASSWORD_VISIBLE)
-            logger.warning("PASSWORD is not in invisible mode")
-            self.click_the_button(*LoginPageLocators.PASSWORD_VISIBLE)
-            logger.info("PASSWORD has been switched to invisible mode")
-        else:
-            logger.error("NO VISIBLE MODE IS PRESENTED")

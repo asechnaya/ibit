@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 import requests
@@ -15,7 +13,9 @@ from pages.payment_page import PaymentPage
 logger = logging.getLogger('test login page')
 
 
-@allure.suite("Testing the login process for the site")
+@allure.feature("Payment feature")
+@allure.story("user should be able to top up his balance")
+@allure.title('Base design features check')
 @allure.testcase("https://st.scrdairy.com/", "Разработка автотестов для главной страницы")
 @Parametrization.parameters('language')
 @Parametrization.case('english', "en")
@@ -44,6 +44,7 @@ class TestLoginPagePositiveCases:
             payment_page.should_be_payment_url()
             browser.back()
 
+    @pytest.mark.xfail(run=True)
     def test_restore_password_for_registered(self, browser, language):
         with allure.step("Open a new page"):
             browser.delete_all_cookies()
@@ -54,7 +55,7 @@ class TestLoginPagePositiveCases:
             login_page.switch_languages(language)
 
         with allure.step("Trying to log in as 4 different users"):
-            login_page.restore_password('username1@name.ru', OK_TEXT)
+            login_page.restore_password('username1@name.ru', OK_TEXT[language])
             browser.back()
 
     @pytest.mark.xfail(run=True)

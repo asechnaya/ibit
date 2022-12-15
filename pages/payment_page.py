@@ -1,11 +1,8 @@
-from matplotlib.colors import rgb2hex
-from selenium.webdriver.common.by import By
-
 from logs.testlogger import logger
 from utils.money_converters import currency_converter
 from .base_page import BasePage
-from .global_variables import BAR_COLOR, BAR_LOCATOR, FINAL_TEXT, PROCESSING_TEXT_EN
-from .locators import FinalPageLocators, PaymentPageLocators, MainPageLocators
+from .global_variables import BAR_COLOR, BAR_LOCATOR, FINAL_TEXT
+from .locators import FinalPageLocators, PaymentPageLocators
 
 
 class PaymentPage(BasePage):
@@ -38,7 +35,7 @@ class PaymentPage(BasePage):
             'No description of status privileges and bonus program conditions '
 
     def should_be_bonus_link(self):
-        assert self.is_element_present(*PaymentPageLocators.BONUS),    "BONUS link is not presented"
+        assert self.is_element_present(*PaymentPageLocators.BONUS), "BONUS link is not presented"
 
     def should_be_description_of_bonuses_text(self):
         # Check is the link is correct and there is a description
@@ -47,18 +44,18 @@ class PaymentPage(BasePage):
             'No description of status privileges and bonus program conditions '
 
     def should_be_all_statuses(self):
-        assert self.is_element_present(*PaymentPageLocators.ITEM_VIP),    "VIP status is not presented"
-        assert self.is_element_present(*PaymentPageLocators.ITEM_GOLD),   "GOLD status is not presented"
+        assert self.is_element_present(*PaymentPageLocators.ITEM_VIP), "VIP status is not presented"
+        assert self.is_element_present(*PaymentPageLocators.ITEM_GOLD), "GOLD status is not presented"
         assert self.is_element_present(*PaymentPageLocators.ITEM_SILVER), "SILVER status is not presented"
-        assert self.is_element_present(*PaymentPageLocators.ITEM_MINI),   "MINI status is not presented"
+        assert self.is_element_present(*PaymentPageLocators.ITEM_MINI), "MINI status is not presented"
 
     def should_be_payment_system_choice(self):
-        assert self.is_element_present(*PaymentPageLocators.PAYMENT_SET),    "No choice of payment systems"
-        assert self.get_the_text(*PaymentPageLocators.PAYMENT_SET) == "VISA, MasterCard, Maestro",  \
+        assert self.is_element_present(*PaymentPageLocators.PAYMENT_FIELD), "No choice of payment systems"
+        assert self.get_the_text(*PaymentPageLocators.PAYMENT_FIELD) == "VISA, MasterCard, Maestro", \
             "No payment description"
 
     def should_be_currency_and_amount_choice(self):
-        assert self.is_element_present(*PaymentPageLocators.CURRENCY),    "No choice of currencies"
+        assert self.is_element_present(*PaymentPageLocators.CURRENCY), "No choice of currencies"
         assert self.is_element_present(*PaymentPageLocators.AMOUNT), "No amount input"
 
     def should_be_proceed_button(self):
@@ -111,3 +108,12 @@ class PaymentPage(BasePage):
         # Find a checkbox
         self.fill_the_input(*PaymentPageLocators.AMOUNT, amount)
 
+    def select_currency(self, cur):
+        # List of currencies:
+        currency = {"ru": PaymentPageLocators.CURRENCY_RU,
+                    "en": PaymentPageLocators.CURRENCY_US,
+                    "ch": PaymentPageLocators.CURRENCY_CH}
+        # select currencies list
+        self.click_the_button(*PaymentPageLocators.CURRENCY)
+        # select one of currencies
+        self.click_the_button(*currency[cur])

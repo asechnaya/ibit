@@ -1,5 +1,3 @@
-import time
-
 import allure
 import pytest
 from parametrization import Parametrization
@@ -9,6 +7,9 @@ from pages.payment_page import PaymentPage
 from pages.login_page import LoginPage
 
 
+@allure.feature("Payment feature")
+@allure.story("user should be able to top up his balance")
+@allure.title('Base design features check')
 @Parametrization.parameters('user_email', 'user_password')
 @Parametrization.case('username1', 'username1@name.ru', 'pass1')
 @Parametrization.case('username2', 'username2@name.ru', 'pass2')
@@ -58,11 +59,12 @@ class TestPaymentPage:
             payment_page.unselect_bonus(False)
             payment_page.click_on_status_item(status_name)
             payment_page.bar_is_according_status(status_name)
-            # payment_page.total_amount_is_correct(status_name, "en")
-            print(browser.current_url)
 
 
 @pytest.mark.smoke
+@allure.feature("Payment feature")
+@allure.story("user should be able to top up his balance")
+@allure.title('Base design features check')
 class TestPaymentPage:
     def test_basic_payment(self, browser):
         with allure.step("Authorization"):
@@ -79,7 +81,6 @@ class TestPaymentPage:
             payment_page.should_be_payment_url()
             payment_page.unselect_bonus(False)
             payment_page.make_payment()
-            print(browser.current_url)
 
     @pytest.mark.skip(reason="critical bugs with ch payment and ko auth")
     @Parametrization.parameters('language_name')
@@ -104,7 +105,7 @@ class TestPaymentPage:
             payment_page.unselect_bonus(False)
             payment_page.make_payment(language_name)
 
-    def test_manual_payment(self, browser):
+    def test_manual_payment_with_different_currencies(self, browser):
         with allure.step("Authorization"):
             browser.delete_all_cookies()
             authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
@@ -114,10 +115,10 @@ class TestPaymentPage:
             login_page.should_be_login_page()
             login_page.fill_the_form('username1@name.ru', 'pass1')
             payment_page = PaymentPage(browser, browser.current_url)
-
-        with allure.step("Testing manual payment"):
             payment_page.should_be_payment_url()
-            payment_page.manually_enter_amount(502)
-            payment_page.unselect_bonus(True)
-            payment_page.make_payment()
-            print(browser.current_url)
+        for cur in ["ru", "en", "ch"]:
+            with allure.step(f"Testing manual payment, currency = {cur}"):
+                payment_page.select_currency(cur)
+                payment_page.manually_enter_amount(502)
+                payment_page.unselect_bonus(True)
+                payment_page.make_payment()

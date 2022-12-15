@@ -21,7 +21,10 @@ class PaymentPageLocators:
     BAR = (By.CSS_SELECTOR, "indicator > div > div > div.bar > div.ghost")
     PAYMENT_CAPTION = (By.CSS_SELECTOR, "#riot-app > div > payment-system-selector > div > div.field-title")
     PAYMENT_FIELD = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > div > div > span.title")
-    CURRENCY = (By.CLASS_NAME, "currency")
+    CURRENCY = (By.CSS_SELECTOR, ".current > .title:nth-child(1)")
+    CURRENCY_RU = By.CSS_SELECTOR, ".active > .item:nth-child(3)"
+    CURRENCY_US = (By.CSS_SELECTOR, "div.currency > div > rg-select > ul > li:nth-child(2) > span")
+    CURRENCY_CH = (By.CSS_SELECTOR, "div.currency > div > rg-select > ul > li:nth-child(3)")
     AMOUNT = (By.CSS_SELECTOR, "#riot-app > div > amount-inputs > div > div.amount > input")
     PROCEED = (By.CLASS_NAME, "submit")
     BONUS_ACTIVE = (By.CSS_SELECTOR, "label:nth-child(2)")
