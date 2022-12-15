@@ -1,6 +1,6 @@
 # checklist
 
-* [result] @assignee Test title
+* Check list in a table mode
 
 | Test name                                                                             | Chrome | FF     | Edge   |
 |---------------------------------------------------------------------------------------|--------|--------|--------|
@@ -24,5 +24,6 @@
 | User can choose one of currencies                                                     | passed | passed | passed |
 | User can choose from payment systems                                                  | passed | passed | passed |
 | User can enter sum manually                                                           | passed | passed | passed |
-| User should make a successful payment in any language                                 | failed | failed | failed |
-| User should make a successful payment                                                 | passed | passed | passed |
+| User should make a successful payment and see Successful text  in any language                                 | failed | failed | failed |
+| User should make a successful payment in every payment system and currency            | passed | passed | passed |
+| Back button should appear and be clickable in every language                                                       | passed | passed | passed |

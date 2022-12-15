@@ -1,3 +1,18 @@
+Найденные баги: qa documents/bug_list.b.md
+Checklist: qa documents/checklist.r.md
+
+Для запуска тестов:
+
+pytest --alluredir=allure-reports test_login_page.py
+pytest --alluredir=allure-reports test_payment_page.py
+
+Для визуализации отчета: allure serve allure-reports
+
+
+
+
+
+
 ##Тестовое задание Automation QA Engineer
 
 
@@ -28,9 +43,3 @@
    условия бонусной программы. После нажатия на кнопку “Продолжить” происходит переход
    на платежную систему, в рамках тестового задания этот переход эмулирован как страница
    "Ваша заявка обрабатывается, подождите".
-
-
-
-pytest --alluredir=allure-reports test_login_page.py
-pytest --alluredir=allure-reports test_payment_page.py
-Для визуализации отчета: allure serve allure-reports
