@@ -29,20 +29,8 @@
    на платежную систему, в рамках тестового задания этот переход эмулирован как страница
    "Ваша заявка обрабатывается, подождите".
 
-Usbc Autotesting
-При первой установке должны быть установлены:
 
-python3.8
-jdk
-pip
-pyvenv
-При первом запуске: ./init.sh
 
-Обязательно скачать драйвера браузера в папку drivers.
-
-Для запуска тестов (при необходимости в файлах можно поправить адреса и порты):
-
-./server/run_hub.sh
-./server/run_*_node.sh
-./runs/run_*_tests.sh
-Для визуализации отчета: ./runs/serve_allure.sh
+pytest --alluredir=allure-reports test_login_page.py
+pytest --alluredir=allure-reports test_payment_page.py
+Для визуализации отчета: allure serve allure-reports

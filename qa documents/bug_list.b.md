@@ -10,13 +10,17 @@
     * Proceed button is a div, but repair password button is a button
     * "Send" instead of "sent" in restore password success notification ("New password was send to your email address")
     * Tags <notifications> and <phone> with no context inside
-    * [A designer has a humor] Obscene language: is <wtf> tag
+    * [A designer has a humor] Obscene language: `<wtf>` tag
+    * Chinese success text in restoring password action is 好吧，你是一個硬漢, 
+  that is translated as "well you are a tough guy"
+    * 
 
 
 * Medium bugs [do not affect the functional]
   * Password cannot be concealed (affects security)
   * The more you switch between languages the more slashes you obtain in the address link (might have affect to the future functions, now just looks strange)
   * No possibility to register (no possibility to test new emails)
+  * In indian version there is @message forget@ while restoring password
   * When restoring a password, the email address is not checked. Registered and unregistered users receive the same notification.
 
 
