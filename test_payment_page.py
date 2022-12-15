@@ -65,7 +65,7 @@ class TestPaymentPage:
 @allure.feature("Payment feature")
 @allure.story("user should be able to top up his balance")
 @allure.title('Base design features check')
-class TestPaymentPage:
+class TestPayments:
     def test_basic_payment(self, browser):
         with allure.step("Authorization"):
             browser.delete_all_cookies()
