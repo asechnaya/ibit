@@ -15,3 +15,6 @@ mkdir drivers
 # run tests
 pytest --alluredir=allure-reports test_login_page.py
 pytest --alluredir=allure-reports test_payment_page.py
+
+# make reports
+allure serve allure-reports
