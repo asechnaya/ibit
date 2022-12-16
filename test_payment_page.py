@@ -2,7 +2,7 @@ import allure
 import pytest
 from parametrization import Parametrization
 
-from pages.global_variables import LINK, PREFIX, PASSWORD, USER
+from pages.global_variables import AUTH_LINK
 from pages.payment_page import PaymentPage
 from pages.login_page import LoginPage
 
@@ -15,13 +15,11 @@ from pages.login_page import LoginPage
 @Parametrization.case('username2', 'username2@name.ru', 'pass2')
 @Parametrization.case('username3', 'username3@name.ru', 'pass3')
 @Parametrization.case('username4', 'username4@name.ru', 'pass4')
-class TestPaymentPage:
+class TestPaymentPageDesign:
     @pytest.mark.xfail(reason="design is not fully established. No status description")
     def test_design_of_payments(self, browser, user_email, user_password):
         with allure.step("Login as user"):
-            browser.delete_all_cookies()
-            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-            login_page = LoginPage(browser, authorization_link)
+            login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
             login_page.should_be_login_page()
             login_page.switch_languages("en")
@@ -45,9 +43,7 @@ class TestPaymentPage:
     @Parametrization.case('mini', 'mini')
     def test_switching_statuses(self, browser, user_email, user_password, status_name):
         with allure.step("Open a new page"):
-            browser.delete_all_cookies()
-            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-            login_page = LoginPage(browser, authorization_link)
+            login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
             login_page.should_be_login_page()
 
@@ -69,9 +65,7 @@ class TestPaymentPage:
 class TestPayments:
     def test_basic_payment(self, browser):
         with allure.step("Authorization"):
-            browser.delete_all_cookies()
-            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-            login_page = LoginPage(browser, authorization_link)
+            login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
             login_page.switch_languages()
             login_page.should_be_login_page()
@@ -92,9 +86,7 @@ class TestPayments:
     @Parametrization.case('ko', 'ko')
     def test_different_languages_payment(self, browser, language_name):
         with allure.step("Authorization"):
-            browser.delete_all_cookies()
-            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-            login_page = LoginPage(browser, authorization_link)
+            login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
             login_page.switch_languages(language_name)
             login_page.should_be_login_page()
@@ -108,9 +100,7 @@ class TestPayments:
 
     def test_manual_payment_with_different_currencies(self, browser):
         with allure.step("Authorization"):
-            browser.delete_all_cookies()
-            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-            login_page = LoginPage(browser, authorization_link)
+            login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
             login_page.switch_languages()
             login_page.should_be_login_page()
@@ -126,9 +116,7 @@ class TestPayments:
 
     def test_manual_payment_with_different_ps(self, browser):
         with allure.step("Proceed Authorization"):
-            browser.delete_all_cookies()
-            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-            login_page = LoginPage(browser, authorization_link)
+            login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
             login_page.switch_languages()
             login_page.should_be_login_page()
