@@ -25,8 +25,8 @@ NOT_OK_TEXT = "No such email address"
 PROCESSING_TEXT_RU = "ВАША ЗАЯВКА ОБРАБАТЫВАЕТСЯ, ПОЖАЛУЙСТА ПОДОЖДИТЕ"
 PROCESSING_TEXT_EN = "YOUR PAYMENT IS BEING PROCESSED"
 PROCESSING_TEXT_HI = "आपका भुगतान प्रोसेस किया जा रहा है"
-PROCESSING_TEXT_KO = "आपका भुगतान प्रोसेस किया जा रहा है"
-PROCESSING_TEXT_CH = "आपका भुगतान प्रोसेस किया जा रहा है"
+PROCESSING_TEXT_KO = "Some korean text"
+PROCESSING_TEXT_CH = "Some chinese text"
 
 FINAL_TEXT = {"ru": PROCESSING_TEXT_RU,
               "en": PROCESSING_TEXT_EN,

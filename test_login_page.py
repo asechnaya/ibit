@@ -80,7 +80,7 @@ class TestLoginPagePositiveCases:
 @pytest.mark.login
 class TestLoginPageNegativeCases:
     @pytest.mark.xfail(raises=exceptions.InvalidArgumentException, run=True)
-    def test_status_code_random_authorization(self, browser):
+    def test_random_authorization(self, browser):
         with allure.step("Open a new page without auth"):
             browser.delete_all_cookies()
             login_page = LoginPage(browser, PREFIX + "randomname:password@" + LINK)
@@ -88,11 +88,11 @@ class TestLoginPageNegativeCases:
             login_page.should_be_login_page()
             pytest.xfail("auth is not correct")
 
-    @pytest.mark.xfail(raises=exceptions.InvalidArgumentException, run=True)
-    def test_random_authorization(self):
-        with allure.step("Open a new page with random auth"):
-            status_code = requests.get(PREFIX + "random:random@" + LINK).status_code
-            logger.info("page status_code is ", status_code)
+    def test_status_code_random_authorization(self):
+        with allure.step("Get a page status with random auth"):
+            response = requests.get(PREFIX + "randomname:password@" + LINK)
+            status_code = response.status_code
+            logger.info(f"page status_code is {status_code}")
             assert status_code == 401
 
     def test_unregistered_emails(self, browser):
