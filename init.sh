@@ -7,6 +7,6 @@ pip install -r requirements.txt
 mkdir report
 mkdir drivers
 
-# install appium
-npm init
-sudo nmp install
+# run tests
+pytest --alluredir=allure-reports test_login_page.py
+pytest --alluredir=allure-reports test_payment_page.py
