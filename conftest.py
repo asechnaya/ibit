@@ -1,13 +1,14 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from logs.testlogger import logger
 from pages.base_page import BasePage
 from pages.global_variables import LINK, PASSWORD, PREFIX, USER
 
 
 def headless_chrome():
-    ops = webdriver.ChromeOptions()
-    ops.headless = False
+    ops = Options()
+    ops.add_argument("--headless")
     driver = webdriver.Chrome(options=ops)
     return driver
 
