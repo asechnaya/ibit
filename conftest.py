@@ -2,10 +2,9 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options as FFOptions
-from selenium.webdriver.edge.options import Options as EOptions
+from msedge.selenium_tools import Edge
+from msedge.selenium_tools import EdgeOptions
 from logs.testlogger import logger
-from pages.base_page import BasePage
-from pages.global_variables import LINK, PASSWORD, PREFIX, USER
 
 
 def headless_chrome():
@@ -23,11 +22,13 @@ def headless_firefox():
 
 
 def headless_edge():
-    pass
-    # ops = EOptions()
-    # ops.add_argument("--headless")
-    # driver = webdriver.Edge(options=ops)
-    # return driver
+    # make Edge headless
+    edge_options = EdgeOptions()
+    edge_options.use_chromium = True  # if we miss this line, we can't make Edge headless
+    edge_options.add_argument('headless')
+    edge_options.add_argument('disable-gpu')
+    driver = Edge(options=edge_options)
+    return driver
 
 
 def pytest_addoption(parser):
@@ -46,6 +47,9 @@ def browser(request):
     elif browser_name == "firefox":
         print("\nstart firefox browser for test...")
         browser = headless_firefox()
+    elif browser_name == "edge":
+        print("\nstart edge browser for test...")
+        browser = headless_edge()
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     browser.delete_all_cookies()
@@ -54,10 +58,3 @@ def browser(request):
     browser.quit()
     logger.info('Test has finished')
 
-
-@pytest.fixture(scope="class")
-def authorization(browser):
-    browser.delete_all_cookies()
-    authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
-    page = BasePage(browser, authorization_link)
-    page.open()
