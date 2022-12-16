@@ -30,10 +30,12 @@
   * "Repair password" instead of "restore password" in English (wording is not obvious)
   * When a bonus is checked, the status slider does not change
   * You can enter [payment page](https://qa:Af4shrewyirlyuds@ibitcy.com/interview/qa/mobile-deposit/#/payment) directly without logging
+  * Flaky bug: phone number does not show in qiwi payment
 
 
 * Critical [the bug does not allow to archive main goal, no workaround, affects business goals]
   * You can't log in as a korean user: when loging there an error instead of payment page
   * Chinese user could not succeed in payment (proceed button does not lead anywhere)
   * Bonus check does not add x2 when the entered sum is small < 10
+  * Skrill and Neteller payment can't be processed, alert raises (0x0000fffe Resolve 0x0000fffe-Resolve PC Issues)
  
