@@ -7,6 +7,8 @@ PAY_LINK = "ibitcy.com/interview/qa/mobile-deposit/#/payment"
 config = configparser.ConfigParser()
 config.read('config.ini', encoding='utf-8-sig')
 USER, PASSWORD = config.get("DEMO", 'Email'), config.get("DEMO", "Password")
+AUTH_LINK = PREFIX + USER + ":" + PASSWORD + "@" + LINK
+
 
 OK_TEXT_EN = "Новый пароль успешно отправлен на Вашу почту"
 OK_TEXT_RU = "New password was sent to your email address"
