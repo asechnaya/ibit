@@ -1,10 +1,22 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-
 from logs.testlogger import logger
 from pages.base_page import BasePage
 from pages.global_variables import LINK, PASSWORD, PREFIX, USER
+
+
+def headless_chrome():
+    ops = webdriver.ChromeOptions()
+    ops.headless = False
+    driver = webdriver.Chrome(options=ops)
+    return driver
+
+
+def headless_firefox():
+    ops = webdriver.FirefoxOptions()
+    ops.headless = True
+    driver = webdriver.Firefox(options=ops)
+    return driver
 
 
 def pytest_addoption(parser):
@@ -18,13 +30,11 @@ def browser(request):
     browser_name = request.config.getoption("browser_name")
     browser = None
     if browser_name == "chrome":
-        options = Options()
         print("\nstart chrome browser for test...")
-        browser = webdriver.Chrome(options=options)
+        browser = headless_chrome()
     elif browser_name == "firefox":
         print("\nstart firefox browser for test...")
-        fp = webdriver.FirefoxProfile()
-        browser = webdriver.Firefox(firefox_profile=fp)
+        browser = headless_firefox()
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     browser.delete_all_cookies()
