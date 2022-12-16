@@ -123,3 +123,14 @@ class PaymentPage(BasePage):
         # Select one of payment systems
         payment_sys_number = ps_set(num)
         self.click_the_button(*payment_sys_number)
+
+    def enter_phone_and_make_payment(self, language: str = "en", number: str = "9123456789"):
+        self.click_the_button(*PaymentPageLocators.PROCEED)
+        # input_number
+        self.fill_the_input(*FinalPageLocators.PHONE, number)
+        self.click_the_button(*FinalPageLocators.PHONE_PROCEED)
+        # Check the payment process
+        self.make_screenshot('n')
+        assert self.get_the_text(*FinalPageLocators.PROCESSING_TEXT) == FINAL_TEXT[language]
+        self.click_the_button(*FinalPageLocators.BACK_LINK)
+
