@@ -13,8 +13,8 @@ from pages.payment_page import PaymentPage
 logger = logging.getLogger('test login page')
 
 
-@allure.feature("Payment feature")
-@allure.story("user should be able to top up his balance")
+@allure.feature("Login feature")
+@allure.story("user should be able to login to top up his balance")
 @allure.title('Base design features check')
 @allure.testcase("https://st.scrdairy.com/", "Разработка автотестов для главной страницы")
 @Parametrization.parameters('language')
@@ -79,6 +79,9 @@ class TestLoginPagePositiveCases:
             login_page.all_placeholders_have_proper_text()
 
 
+@allure.feature("Login feature")
+@allure.story("user should be able to login to top up his balance")
+@allure.title('Negative cases for login page')
 @pytest.mark.login
 class TestLoginPageNegativeCases:
     @pytest.mark.xfail(raises=exceptions.InvalidArgumentException, run=True)
