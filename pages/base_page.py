@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 
 from selenium.common.exceptions import ElementNotInteractableException, NoSuchElementException
