@@ -9,7 +9,6 @@ config.read('config.ini', encoding='utf-8-sig')
 USER, PASSWORD = config.get("DEMO", 'Email'), config.get("DEMO", "Password")
 AUTH_LINK = PREFIX + USER + ":" + PASSWORD + "@" + LINK
 
-
 OK_TEXT_EN = "Новый пароль успешно отправлен на Вашу почту"
 OK_TEXT_RU = "New password was sent to your email address"
 OK_TEXT_KO = "새 암호가 성공적으로 전자 메일로 보내졌다"
@@ -49,3 +48,18 @@ MONEY_US = {"vip": 2500,
             "gold": 1000,
             "silver": 500,
             "mini": 200}
+
+PAYSYS = {1: 'VISA, MasterCard, Maestro',
+          2: 'VISA, MasterCard, Visa Electron',
+          3: 'VISA, MasterCard, Maestro',
+          4: 'VISA, MasterCard (2)',
+          5: 'Skrill',
+          6: 'Neteller',
+          7: 'Perfect Money',
+          8: 'Fasapay',
+          9: 'Payweb',
+          10: 'WebMoney',
+          11: 'UnionPay',
+          12: 'UnionPay 2',
+          13: 'QIWI',
+          14: 'Яндекс.Деньги'}
