@@ -30,7 +30,7 @@
   * "Repair password" instead of "restore password" in English (wording is not obvious)
   * When a bonus is checked, the status slider does not change
   * You can enter [payment page](https://qa:Af4shrewyirlyuds@ibitcy.com/interview/qa/mobile-deposit/#/payment) directly without logging
-  * Flaky bug: phone number does not show in qiwi payment
+  * Phone number does not show in qiwi payment if the payment is repeated in one session
 
 
 * Critical [the bug does not allow to archive main goal, no workaround, affects business goals]

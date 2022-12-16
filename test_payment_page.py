@@ -1,3 +1,5 @@
+import logging
+
 import allure
 import pytest
 from parametrization import Parametrization
@@ -64,7 +66,8 @@ class TestPaymentPageDesign:
 @allure.title('Base design features check')
 class TestPayments:
 
-    my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    payment_sys_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    attempts = [1, 2]
 
     def test_basic_payment(self, browser):
         with allure.step("Authorization"):
@@ -117,7 +120,7 @@ class TestPayments:
                 payment_page.unselect_bonus(True)
                 payment_page.make_payment()
 
-    @pytest.mark.parametrize("ps_number", my_list)
+    @pytest.mark.parametrize("ps_number", payment_sys_list)
     def test_payment_with_different_ps(self, browser, ps_number):
         with allure.step("Proceed Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
@@ -132,6 +135,7 @@ class TestPayments:
             payment_page.select_ps(ps_number)
             payment_page.make_payment()
 
+    @pytest.mark.xfail(reason="The second attemt always fails")
     def test_payment_with_qiwi(self, browser):
         with allure.step("Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
@@ -144,5 +148,7 @@ class TestPayments:
 
         with allure.step(f"Testing manual payment, payment_system = QIWI"):
             payment_page.select_ps(13)
-            payment_page.enter_phone_and_make_payment()
+            for i in self.attempts:
+                logging.info(f"Qiwi payment number {i}")
+                payment_page.enter_phone_and_make_payment()
 
