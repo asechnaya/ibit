@@ -9,9 +9,9 @@
 ### To run tests:
 
 ```
-pytest --alluredir=allure-reports test_login_page.py 
+pytest --alluredir=allure-reports --browser_name=chrome test_login_page.py 
 
-pytest --alluredir=allure-reports test_payment_page.py 
+pytest --alluredir=allure-reports --browser_name=firefox test_payment_page.py 
 ``` 
 
 ### To visualize the report:
