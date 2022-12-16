@@ -146,9 +146,8 @@ class TestPayments:
             payment_page = PaymentPage(browser, browser.current_url)
             payment_page.should_be_payment_url()
 
-        with allure.step(f"Testing manual payment, payment_system = QIWI"):
+        with allure.step("Testing manual payment, payment_system=QIWI"):
             payment_page.select_ps(13)
             for i in self.attempts:
                 logging.info(f"Qiwi payment number {i}")
                 payment_page.enter_phone_and_make_payment()
-
