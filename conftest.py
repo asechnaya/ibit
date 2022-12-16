@@ -2,6 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options as FFOptions
+from selenium.webdriver.edge.options import Options as EOptions
 from logs.testlogger import logger
 from pages.base_page import BasePage
 from pages.global_variables import LINK, PASSWORD, PREFIX, USER
@@ -19,6 +20,14 @@ def headless_firefox():
     ops.add_argument("--headless")
     driver = webdriver.Firefox(options=ops)
     return driver
+
+
+def headless_edge():
+    pass
+    # ops = EOptions()
+    # ops.add_argument("--headless")
+    # driver = webdriver.Edge(options=ops)
+    # return driver
 
 
 def pytest_addoption(parser):

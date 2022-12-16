@@ -60,3 +60,6 @@ class LoginPageLocators:
     PASSWORD_RESTORE_NOTE = (By.CSS_SELECTOR, "forgot-password > form > button")
     PASSWORD_RESTORE_TEXT = (By.CLASS_NAME, "text")
     PASSWORD_CLOSE_NOTIFICATION = (By.CLASS_NAME, "close")
+    WRONG_PASS = (By.CLASS_NAME, "notification")
+    WRONG_PASS_TEXT = (By.CSS_SELECTOR, "login-form > notifications > div > div > div.text")
+    CLOSE_WRONG_PASS = (By.CLASS_NAME, "close")

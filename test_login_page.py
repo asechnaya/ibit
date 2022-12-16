@@ -88,6 +88,7 @@ class TestLoginPageNegativeCases:
             login_page.should_be_login_page()
             pytest.xfail("auth is not correct")
 
+    @pytest.mark.xfail(raises=exceptions.InvalidArgumentException, run=True)
     def test_random_authorization(self):
         with allure.step("Open a new page with random auth"):
             status_code = requests.get(PREFIX + "random:random@" + LINK).status_code
@@ -104,9 +105,7 @@ class TestLoginPageNegativeCases:
 
         with allure.step("Trying to log in as random users"):
             login_page.fill_the_form("user_email@email.ru", "user_password")
-            payment_page = PaymentPage(browser, browser.current_url)
-            payment_page.should_be_payment_url()
-            browser.back()
+            login_page.wrong_password()
 
     @pytest.mark.xfail(run=False)
     def test_restore_password_for_unregistered(self, browser):
