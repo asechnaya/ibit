@@ -1,3 +1,5 @@
+
+
 Найденные баги: qa documents/bug_list.b.md
 Checklist: qa documents/checklist.r.md
 
@@ -11,7 +13,7 @@ pytest --alluredir=allure-reports test_payment_page.py
 
 
 
-
+-----------------------------
 
 ##Тестовое задание Automation QA Engineer
 

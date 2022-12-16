@@ -2,7 +2,7 @@ from logs.testlogger import logger
 from utils.money_converters import currency_converter
 from .base_page import BasePage
 from .global_variables import BAR_COLOR, BAR_LOCATOR, FINAL_TEXT
-from .locators import FinalPageLocators, PaymentPageLocators
+from .locators import FinalPageLocators, PaymentPageLocators, ps_set
 
 
 class PaymentPage(BasePage):
@@ -71,25 +71,24 @@ class PaymentPage(BasePage):
         logger.info(f"status active item {item} is {status_item.get_attribute('active')}")
         assert status_item.get_attribute("active") == item, "Item is not illuminated"
 
-    def make_payment(self, language="en"):
-        # Select list of payments
-        self.click_the_button(*PaymentPageLocators.PAYMENT_FIELD)
-        # Select one of payment systems
-        self.click_the_button(*PaymentPageLocators.VISA_SET_3)
+    def make_payment(self, language: str = "en"):
         # make a payment
         self.click_the_button(*PaymentPageLocators.PROCEED)
         # Check the payment process
         assert self.get_the_text(*FinalPageLocators.PROCESSING_TEXT) == FINAL_TEXT[language]
         self.click_the_button(*FinalPageLocators.BACK_LINK)
 
-    def bar_is_according_status(self, attribute):
+    def bar_is_according_status(self, attribute: str):
         current_bar_index = self.check_the_attribute(*PaymentPageLocators.BAR, "style")
         current_bar_color = self.check_the_property(*PaymentPageLocators.BAR, "background-color")
         assert current_bar_index == BAR_LOCATOR[attribute], "Bar width is not correct"
         assert current_bar_color == BAR_COLOR[attribute], "Bar color is not correct"
         logger.info(f"status active item is {attribute}, bar's color is {BAR_COLOR[attribute]}")
 
-    def total_amount_is_correct(self, status, currency, bonus=True):
+    def total_amount_is_correct(self, status: str, currency: str, bonus: bool = True):
+        """
+        this function asserts text in the box with expected calculated sum for a status
+        """
         amount = currency_converter(currency, bonus)
         expected_text = str(amount[status])
         amount_text = self.get_the_text(*PaymentPageLocators.TOTAL_AMOUNT)
@@ -117,3 +116,10 @@ class PaymentPage(BasePage):
         self.click_the_button(*PaymentPageLocators.CURRENCY)
         # select one of currencies
         self.click_the_button(*currency[cur])
+
+    def select_ps(self, num: int = 1):
+        # Select list of payments
+        self.click_the_button(*PaymentPageLocators.PAYMENT_FIELD)
+        # Select one of payment systems
+        payment_sys_number = ps_set(num)
+        self.click_the_button(*payment_sys_number)

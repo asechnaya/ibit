@@ -9,6 +9,10 @@ class MainPageLocators:
     COW_NUMBER = (By.CSS_SELECTOR, "div.search-results-types > ul > li:nth-child(1) > span > span > span:nth-child(3)")
 
 
+def ps_set(num):
+    return By.CSS_SELECTOR, f"payment-system-selector > div > div.select > rg-select > ul > li:nth-child({num})"
+
+
 class PaymentPageLocators:
     PAYMENT_BOX = (By.CLASS_NAME, "page")
     TITLE = (By.LINK_TEXT, "Status privileges description")
@@ -30,7 +34,7 @@ class PaymentPageLocators:
     BONUS_ACTIVE = (By.CSS_SELECTOR, "label:nth-child(2)")
     TOTAL_AMOUNT = (By.CSS_SELECTOR, ".you-get > .value")
     YOU_GET = (By.CSS_SELECTOR, "#riot-app > div > total > div > div.you-get > div.value")
-    VISA_SET_1 = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(1)")
+
     VISA_SET_2 = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(2)")
     VISA_SET_3 = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(3)")
     SKRILL = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(4)")

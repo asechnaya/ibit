@@ -16,7 +16,7 @@ from pages.login_page import LoginPage
 @Parametrization.case('username3', 'username3@name.ru', 'pass3')
 @Parametrization.case('username4', 'username4@name.ru', 'pass4')
 class TestPaymentPage:
-    @pytest.xfail(reason="design is not fully established. No status description")
+    @pytest.mark.xfail(reason="design is not fully established. No status description")
     def test_design_of_payments(self, browser, user_email, user_password):
         with allure.step("Login as user"):
             browser.delete_all_cookies()
@@ -122,4 +122,21 @@ class TestPayments:
                 payment_page.select_currency(cur)
                 payment_page.manually_enter_amount(502)
                 payment_page.unselect_bonus(True)
+                payment_page.make_payment()
+
+    def test_manual_payment_with_different_ps(self, browser):
+        with allure.step("Proceed Authorization"):
+            browser.delete_all_cookies()
+            authorization_link = PREFIX + USER + ":" + PASSWORD + "@" + LINK
+            login_page = LoginPage(browser, authorization_link)
+            login_page.open()
+            login_page.switch_languages()
+            login_page.should_be_login_page()
+            login_page.fill_the_form('username1@name.ru', 'pass1')
+            payment_page = PaymentPage(browser, browser.current_url)
+            payment_page.should_be_payment_url()
+
+        for ps_number in [1, 2, 3]:
+            with allure.step(f"Testing manual payment, currency = {ps_number}"):
+                payment_page.select_ps(ps_number)
                 payment_page.make_payment()
