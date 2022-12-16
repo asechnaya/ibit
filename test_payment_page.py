@@ -151,7 +151,7 @@ class TestPayments:
             login_page.should_be_login_page()
             login_page.fill_the_form('username1@name.ru', 'pass1')
             payment_page = PaymentPage(browser, browser.current_url)
-            payment_page.should_be_payment_url()
+            payment_page.should_be_payment_page()
 
         with allure.step("Testing manual payment, payment_system=QIWI"):
             payment_page.select_ps(13)
