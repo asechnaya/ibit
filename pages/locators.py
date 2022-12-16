@@ -15,8 +15,8 @@ def ps_set(num):
 
 class PaymentPageLocators:
     PAYMENT_BOX = (By.CLASS_NAME, "page")
-    TITLE = (By.LINK_TEXT, "Status privileges description")
-    BONUS = (By.LINK_TEXT, "Bonus")
+    TITLE = (By.CSS_SELECTOR, "status-selector > div.header > a")
+    BONUS = (By.CSS_SELECTOR, "total > div > div.bonus > div.title > label:nth-child(3) > a")
     ITEM_VIP = (By.NAME, "vip")
     ITEM_GOLD = (By.NAME, "gold")
     ITEM_SILVER = (By.NAME, "silver")
