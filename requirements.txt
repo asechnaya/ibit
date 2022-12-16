@@ -1,6 +1,6 @@
 configparser==5.0.2
 pytest==6.2.5
-selenium==3.14.0
+selenium==3.141.0
 Pillow==9.1.1
 Selenium-Screenshot==2.0.0
 requests~=2.28.1
@@ -9,3 +9,4 @@ allure-python-commons==2.8.40
 pytest-xdist==2.5.0
 webdriver-manager==3.8.5
 pytest-parametrization==2022.2.1
+msedge-selenium-tools==3.141.4

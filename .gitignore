@@ -1,6 +1,7 @@
 /exam.iml
 /.idea/
 /logs/logg_txt.log
+ibitcy.iml
 
 # Unit test / coverage reports
 .tox/

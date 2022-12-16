@@ -18,6 +18,28 @@ from pages.login_page import LoginPage
 @Parametrization.case('username3', 'username3@name.ru', 'pass3')
 @Parametrization.case('username4', 'username4@name.ru', 'pass4')
 class TestPaymentPageDesign:
+    @Parametrization.parameters('status_name')
+    @Parametrization.case('vip', 'vip')
+    @Parametrization.case('gold', 'gold')
+    @Parametrization.case('silver', 'silver')
+    @Parametrization.case('mini', 'mini')
+    def test_switching_statuses(self, browser, user_email, user_password, status_name):
+        with allure.step("Open a new page"):
+            login_page = LoginPage(browser, AUTH_LINK)
+            login_page.open()
+            login_page.should_be_login_page()
+
+        with allure.step("Trying to log in as a user"):
+            login_page.fill_the_form(user_email, user_password)
+            payment_page = PaymentPage(browser, browser.current_url)
+
+        with allure.step(f"Switch to status {status_name}"):
+            print(browser.current_url)
+            payment_page.should_be_payment_url()
+            payment_page.unselect_bonus(False)
+            payment_page.click_on_status_item(status_name)
+            payment_page.bar_is_according_status(status_name)
+
     @pytest.mark.xfail(reason="design is not fully established. No status description")
     def test_design_of_payments(self, browser, user_email, user_password):
         with allure.step("Login as user"):
@@ -38,27 +60,6 @@ class TestPaymentPageDesign:
             payment_page.should_be_description_of_privileges_text()  # this is absent
             payment_page.should_be_description_of_bonuses_text()
 
-    @Parametrization.parameters('status_name')
-    @Parametrization.case('vip', 'vip')
-    @Parametrization.case('gold', 'gold')
-    @Parametrization.case('silver', 'silver')
-    @Parametrization.case('mini', 'mini')
-    def test_switching_statuses(self, browser, user_email, user_password, status_name):
-        with allure.step("Open a new page"):
-            login_page = LoginPage(browser, AUTH_LINK)
-            login_page.open()
-            login_page.should_be_login_page()
-
-        with allure.step("Trying to log in as a user"):
-            login_page.fill_the_form(user_email, user_password)
-            payment_page = PaymentPage(browser, browser.current_url)
-
-        with allure.step(f"Switch to status {status_name}"):
-            payment_page.should_be_payment_url()
-            payment_page.unselect_bonus(False)
-            payment_page.click_on_status_item(status_name)
-            payment_page.bar_is_according_status(status_name)
-
 
 @pytest.mark.smoke
 @allure.feature("Payment feature")
@@ -66,7 +67,6 @@ class TestPaymentPageDesign:
 @allure.title('Base design features check')
 class TestPayments:
 
-    payment_sys_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     attempts = [1, 2]
 
     def test_basic_payment(self, browser):
@@ -120,7 +120,14 @@ class TestPayments:
                 payment_page.unselect_bonus(True)
                 payment_page.make_payment()
 
-    @pytest.mark.parametrize("ps_number", payment_sys_list)
+    @pytest.mark.parametrize("ps_number", [1, 2, 3, 4,
+                                           pytest.param(5, marks=pytest.mark.xfail(reason='bug: alert')),
+                                           pytest.param(6, marks=pytest.mark.xfail(reason='bug: alert')),
+                                           7, 8, 9, 10, 11, 12, 14],
+                             ids=['VISA, MasterCard, Maestro', 'VISA, MasterCard, Visa Electron',
+                                  'VISA, MasterCard, Maestro', 'VISA, MasterCard (2)', 'Skrill', 'Neteller',
+                                  'Perfect Money', 'Fasapay', 'Payweb', 'WebMoney', 'UnionPay', 'UnionPay 2',
+                                  'Yandex.Money'])
     def test_payment_with_different_ps(self, browser, ps_number):
         with allure.step("Proceed Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
@@ -135,7 +142,7 @@ class TestPayments:
             payment_page.select_ps(ps_number)
             payment_page.make_payment()
 
-    @pytest.mark.xfail(reason="The second attemt always fails")
+    @pytest.mark.xfail(reason="The second attempt always fails")
     def test_payment_with_qiwi(self, browser):
         with allure.step("Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
@@ -144,7 +151,7 @@ class TestPayments:
             login_page.should_be_login_page()
             login_page.fill_the_form('username1@name.ru', 'pass1')
             payment_page = PaymentPage(browser, browser.current_url)
-            payment_page.should_be_payment_url()
+            payment_page.should_be_payment_page()
 
         with allure.step("Testing manual payment, payment_system=QIWI"):
             payment_page.select_ps(13)
