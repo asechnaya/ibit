@@ -136,4 +136,3 @@ class PaymentPage(BasePage):
         # Check the payment process
         assert self.get_the_text(*FinalPageLocators.PROCESSING_TEXT) == FINAL_TEXT[language]
         self.click_the_button(*FinalPageLocators.BACK_LINK)
-

@@ -9,7 +9,6 @@ from pages.global_variables import LINK, OK_TEXT, NOT_OK_TEXT, PASSWORD, PREFIX,
 from pages.login_page import LoginPage
 from pages.payment_page import PaymentPage
 
-
 logger = logging.getLogger('test login page')
 
 
@@ -17,12 +16,8 @@ logger = logging.getLogger('test login page')
 @allure.story("user should be able to login to top up his balance")
 @allure.title('Base design features check')
 @allure.testcase("https://st.scrdairy.com/", "Разработка автотестов для главной страницы")
-@Parametrization.parameters('language')
-@Parametrization.case('english', "en")
-@Parametrization.case('chinese', "ch")
-@Parametrization.case('korean',  "ko")
-@Parametrization.case('russian', "ru")
-@Parametrization.case('hindi',   "hi")
+@pytest.mark.parametrize("language",
+                         ["en", "ch", "ru", "hi", pytest.param("ko", marks=pytest.mark.xfail(reason='some bug')), ])
 class TestLoginPagePositiveCases:
     @Parametrization.parameters('user_email', 'user_password')
     @Parametrization.case('username1', 'username1@name.ru', 'pass1')
@@ -85,7 +80,7 @@ class TestLoginPagePositiveCases:
 @pytest.mark.login
 class TestLoginPageNegativeCases:
     @pytest.mark.xfail(raises=exceptions.InvalidArgumentException, run=True)
-    def test_status_code_random_authorization(self, browser):
+    def test_random_authorization(self, browser):
         with allure.step("Open a new page without auth"):
             browser.delete_all_cookies()
             login_page = LoginPage(browser, PREFIX + "randomname:password@" + LINK)
@@ -93,10 +88,11 @@ class TestLoginPageNegativeCases:
             login_page.should_be_login_page()
             pytest.xfail("auth is not correct")
 
-    def test_random_authorization(self):
-        with allure.step("Open a new page with random auth"):
-            status_code = requests.get(PREFIX + "random:random@" + LINK).status_code
-            logger.info("page status_code is ", status_code)
+    def test_status_code_random_authorization(self):
+        with allure.step("Get a page status with random auth"):
+            response = requests.get(PREFIX + "randomname:password@" + LINK)
+            status_code = response.status_code
+            logger.info(f"page status_code is {status_code}")
             assert status_code == 401
 
     def test_unregistered_emails(self, browser):
@@ -109,9 +105,7 @@ class TestLoginPageNegativeCases:
 
         with allure.step("Trying to log in as random users"):
             login_page.fill_the_form("user_email@email.ru", "user_password")
-            payment_page = PaymentPage(browser, browser.current_url)
-            payment_page.should_be_payment_url()
-            browser.back()
+            login_page.wrong_password()
 
     @pytest.mark.xfail(run=False)
     def test_restore_password_for_unregistered(self, browser):

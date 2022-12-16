@@ -67,3 +67,10 @@ class LoginPage(BasePage):
         if password_placeholder != "Enter password":
             logger.error(f"incorrect password_placeholder text: {password_placeholder}")
             raise AssertionError
+
+    def wrong_password(self):
+        assert self.is_element_present(*LoginPageLocators.WRONG_PASS), "no notification about incorrect password"
+        assert self.is_element_present(*LoginPageLocators.WRONG_PASS_TEXT), "no notification text"
+        wrong_pass_text = self.get_the_text(*LoginPageLocators.WRONG_PASS_TEXT)
+        self.click_the_button(*LoginPageLocators.CLOSE_WRONG_PASS)
+        logger.warning(f"incorrect password, text: {wrong_pass_text}")
