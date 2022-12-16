@@ -35,16 +35,12 @@ class PaymentPageLocators:
     TOTAL_AMOUNT = (By.CSS_SELECTOR, ".you-get > .value")
     YOU_GET = (By.CSS_SELECTOR, "#riot-app > div > total > div > div.you-get > div.value")
 
-    VISA_SET_2 = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(2)")
-    VISA_SET_3 = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(3)")
-    SKRILL = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(4)")
-    NETELLER = (By.CSS_SELECTOR, "payment-system-selector > div > div.select > rg-select > ul > li:nth-child(5)")
-
 
 class FinalPageLocators:
+    PHONE = (By.CSS_SELECTOR, "phone > div > div > div.form > div > div.right > input")
+    PHONE_PROCEED = (By.CSS_SELECTOR, "#riot-app > div > phone > div > div > div.form > submit > div > a > span")
     PROCESSING_TEXT = (By.CSS_SELECTOR, "h1")
     BACK_LINK = (By.CSS_SELECTOR, "#riot-app > div > div.back > a")
-
 
 
 class LoginPageLocators:
