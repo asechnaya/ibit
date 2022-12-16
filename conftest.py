@@ -27,6 +27,7 @@ def browser(request):
         browser = webdriver.Firefox(firefox_profile=fp)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
+    browser.delete_all_cookies()
     yield browser
     print("\nquit browser..")
     browser.quit()
