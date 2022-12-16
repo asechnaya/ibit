@@ -20,4 +20,4 @@ pytest --alluredir=allure-reports test_payment_page.py
 ```
 
 -----------------------------
-![](qa%20documents\2022-12-16_12-51-26.png)x
+![](qa%20documents/2022-12-16_12-51-26.png)
