@@ -2,7 +2,7 @@
 ###documentation:
 * Bug found [qa documents/bug_list.b.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/bug_list.b.md)
 * Two bugs description [qa documents/two_bugs.c.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/two_bugs.c.md)
-*Checklist: [qa documents/checklist.r.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/checklist.r.md)
+* Checklist: [qa documents/checklist.r.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/checklist.r.md)
 
 Test task: Automation QA Engineer: qa documents/automation QA Engineer.pdf
 
