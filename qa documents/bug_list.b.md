@@ -21,6 +21,7 @@
   * No possibility to register (no possibility to test new emails)
   * In indian version there is @message forget@ while restoring password
   * When restoring a password, the email address is not checked. Registered and unregistered users receive the same notification.
+  * Two payments with the same name (VISA, MasterCard, Maestro)
 
 
 * High [affects functional or customer's requirements]

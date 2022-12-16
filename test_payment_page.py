@@ -66,7 +66,6 @@ class TestPaymentPageDesign:
 @allure.title('Base design features check')
 class TestPayments:
 
-    payment_sys_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     attempts = [1, 2]
 
     def test_basic_payment(self, browser):
@@ -120,7 +119,14 @@ class TestPayments:
                 payment_page.unselect_bonus(True)
                 payment_page.make_payment()
 
-    @pytest.mark.parametrize("ps_number", payment_sys_list)
+    @pytest.mark.parametrize("ps_number", [1, 2, 3, 4,
+                                           pytest.param(5, marks=pytest.mark.xfail(reason='bug: alert')),
+                                           pytest.param(6, marks=pytest.mark.xfail(reason='bug: alert')),
+                                           7, 8, 9, 10, 11, 12, 14],
+                             ids=['VISA, MasterCard, Maestro', 'VISA, MasterCard, Visa Electron',
+                                  'VISA, MasterCard, Maestro', 'VISA, MasterCard (2)', 'Skrill', 'Neteller',
+                                  'Perfect Money', 'Fasapay', 'Payweb', 'WebMoney', 'UnionPay', 'UnionPay 2',
+                                  'Yandex.Money'])
     def test_payment_with_different_ps(self, browser, ps_number):
         with allure.step("Proceed Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
@@ -135,7 +141,7 @@ class TestPayments:
             payment_page.select_ps(ps_number)
             payment_page.make_payment()
 
-    @pytest.mark.xfail(reason="The second attemt always fails")
+    @pytest.mark.xfail(reason="The second attempt always fails")
     def test_payment_with_qiwi(self, browser):
         with allure.step("Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
