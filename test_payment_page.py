@@ -2,7 +2,7 @@ import allure
 import pytest
 from parametrization import Parametrization
 
-from pages.global_variables import AUTH_LINK
+from pages.global_variables import AUTH_LINK, PAYSYS
 from pages.payment_page import PaymentPage
 from pages.login_page import LoginPage
 
@@ -63,6 +63,9 @@ class TestPaymentPageDesign:
 @allure.story("user should be able to top up his balance")
 @allure.title('Base design features check')
 class TestPayments:
+
+    my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+
     def test_basic_payment(self, browser):
         with allure.step("Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
@@ -114,7 +117,8 @@ class TestPayments:
                 payment_page.unselect_bonus(True)
                 payment_page.make_payment()
 
-    def test_manual_payment_with_different_ps(self, browser):
+    @pytest.mark.parametrize("ps_number", my_list)
+    def test_payment_with_different_ps(self, browser, ps_number):
         with allure.step("Proceed Authorization"):
             login_page = LoginPage(browser, AUTH_LINK)
             login_page.open()
@@ -124,7 +128,21 @@ class TestPayments:
             payment_page = PaymentPage(browser, browser.current_url)
             payment_page.should_be_payment_url()
 
-        for ps_number in [1, 2, 3]:
-            with allure.step(f"Testing manual payment, currency = {ps_number}"):
-                payment_page.select_ps(ps_number)
-                payment_page.make_payment()
+        with allure.step(f"Testing manual payment, payment_system = {PAYSYS[ps_number]}"):
+            payment_page.select_ps(ps_number)
+            payment_page.make_payment()
+
+    def test_payment_with_qiwi(self, browser):
+        with allure.step("Authorization"):
+            login_page = LoginPage(browser, AUTH_LINK)
+            login_page.open()
+            login_page.switch_languages()
+            login_page.should_be_login_page()
+            login_page.fill_the_form('username1@name.ru', 'pass1')
+            payment_page = PaymentPage(browser, browser.current_url)
+            payment_page.should_be_payment_url()
+
+        with allure.step(f"Testing manual payment, payment_system = QIWI"):
+            payment_page.select_ps(13)
+            payment_page.enter_phone_and_make_payment()
+
