@@ -13,7 +13,6 @@
     * [A designer has a humor] Obscene language: `<wtf>` tag
     * Chinese success text in restoring password action is 好吧，你是一個硬漢, 
   that is translated as "well you are a tough guy"
-    * 
 
 
 * Medium bugs [do not affect the functional]
@@ -36,4 +35,5 @@
 * Critical [the bug does not allow to archive main goal, no workaround, affects business goals]
   * You can't log in as a korean user: when loging there an error instead of payment page
   * Chinese user could not succeed in payment (proceed button does not lead anywhere)
+  * Bonus check does not add x2 when the entered sum is small < 10
  
