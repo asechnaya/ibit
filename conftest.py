@@ -57,4 +57,3 @@ def browser(request):
     print("\nquit browser..")
     browser.quit()
     logger.info('Test has finished')
-

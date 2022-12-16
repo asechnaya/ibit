@@ -15,7 +15,7 @@ logger = logging.getLogger('test login page')
 @allure.feature("Login feature")
 @allure.story("user should be able to login to top up his balance")
 @allure.title('Base design features check')
-@allure.testcase("https://st.scrdairy.com/", "Разработка автотестов для главной страницы")
+@allure.testcase("https://ibitcy.com/interview/qa/mobile-deposit/", "Login page tests")
 @pytest.mark.parametrize("language",
                          ["en", "ch", "ru", "hi", pytest.param("ko", marks=pytest.mark.xfail(reason='some bug')), ])
 class TestLoginPagePositiveCases:

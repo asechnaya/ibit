@@ -1,5 +1,5 @@
 
-###documentation:
+### documentation:
 * Bug found [qa documents/bug_list.b.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/bug_list.b.md)
 * Two bugs description [qa documents/two_bugs.c.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/two_bugs.c.md)
 * Checklist: [qa documents/checklist.r.md](https://github.com/asechnaya/ibit/tree/master/qa%20documents/checklist.r.md)
@@ -13,6 +13,8 @@ pytest --alluredir=allure-reports --browser_name=chrome test_login_page.py
 
 pytest --alluredir=allure-reports --browser_name=firefox test_payment_page.py 
 ``` 
+or to launch init.sh
+
 
 ### To visualize the report:
 ```

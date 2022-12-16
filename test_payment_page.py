@@ -12,6 +12,7 @@ from pages.login_page import LoginPage
 @allure.feature("Payment feature")
 @allure.story("user should be able to top up his balance")
 @allure.title('Base design features check')
+@allure.testcase("https://ibitcy.com/interview/qa/mobile-deposit/#/payment", "Payment page tests")
 @Parametrization.parameters('user_email', 'user_password')
 @Parametrization.case('username1', 'username1@name.ru', 'pass1')
 @Parametrization.case('username2', 'username2@name.ru', 'pass2')
