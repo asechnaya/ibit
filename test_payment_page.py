@@ -18,6 +18,28 @@ from pages.login_page import LoginPage
 @Parametrization.case('username3', 'username3@name.ru', 'pass3')
 @Parametrization.case('username4', 'username4@name.ru', 'pass4')
 class TestPaymentPageDesign:
+    @Parametrization.parameters('status_name')
+    @Parametrization.case('vip', 'vip')
+    @Parametrization.case('gold', 'gold')
+    @Parametrization.case('silver', 'silver')
+    @Parametrization.case('mini', 'mini')
+    def test_switching_statuses(self, browser, user_email, user_password, status_name):
+        with allure.step("Open a new page"):
+            login_page = LoginPage(browser, AUTH_LINK)
+            login_page.open()
+            login_page.should_be_login_page()
+
+        with allure.step("Trying to log in as a user"):
+            login_page.fill_the_form(user_email, user_password)
+            payment_page = PaymentPage(browser, browser.current_url)
+
+        with allure.step(f"Switch to status {status_name}"):
+            print(browser.current_url)
+            payment_page.should_be_payment_url()
+            payment_page.unselect_bonus(False)
+            payment_page.click_on_status_item(status_name)
+            payment_page.bar_is_according_status(status_name)
+
     @pytest.mark.xfail(reason="design is not fully established. No status description")
     def test_design_of_payments(self, browser, user_email, user_password):
         with allure.step("Login as user"):
@@ -37,27 +59,6 @@ class TestPaymentPageDesign:
         with allure.step("Testing privileges and bonuses links"):
             payment_page.should_be_description_of_privileges_text()  # this is absent
             payment_page.should_be_description_of_bonuses_text()
-
-    @Parametrization.parameters('status_name')
-    @Parametrization.case('vip', 'vip')
-    @Parametrization.case('gold', 'gold')
-    @Parametrization.case('silver', 'silver')
-    @Parametrization.case('mini', 'mini')
-    def test_switching_statuses(self, browser, user_email, user_password, status_name):
-        with allure.step("Open a new page"):
-            login_page = LoginPage(browser, AUTH_LINK)
-            login_page.open()
-            login_page.should_be_login_page()
-
-        with allure.step("Trying to log in as a user"):
-            login_page.fill_the_form(user_email, user_password)
-            payment_page = PaymentPage(browser, browser.current_url)
-
-        with allure.step(f"Switch to status {status_name}"):
-            payment_page.should_be_payment_url()
-            payment_page.unselect_bonus(False)
-            payment_page.click_on_status_item(status_name)
-            payment_page.bar_is_according_status(status_name)
 
 
 @pytest.mark.smoke
