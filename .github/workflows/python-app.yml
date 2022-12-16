@@ -38,8 +38,7 @@ jobs:
       - name: Test with pytest
         run: |
           pytest --alluredir=allure-reports --browser_name=chrome test_login_page.py
-          # next
-          pytest --alluredir=allure-reports --browser_name=firefox test_payment_page.py
+          pytest --alluredir=allure-reports --browser_name=chrome test_payment_page.py
       - name: Commit and Push The Results From Python Selenium Action
         run: |
           git config --global user.name "github-actions[bot]"
