@@ -14,6 +14,7 @@ from pages.payment_page import PaymentPage
 def headless_chrome():
     ops = Options()
     ops.add_argument("--headless")
+    ops.add_experimental_option('excludeSwitches', ['enable-logging'])
     driver = webdriver.Chrome(options=ops)
     return driver
 
