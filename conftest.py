@@ -72,7 +72,7 @@ def user_pass(request):
 
 @pytest.fixture(params=['en', 'ru', 'hi',
                         pytest.param('ch', marks=pytest.mark.xfail(reason='ch payment button doesnt react')),
-                        pytest.param(6, marks=pytest.mark.xfail(reason='ko auth failed')), ],
+                        pytest.param('ko', marks=pytest.mark.xfail(reason='ko auth failed')), ],
                 ids=['en', 'ru', 'hi', 'ch', 'ko'])
 def language(request):
     return request.param
