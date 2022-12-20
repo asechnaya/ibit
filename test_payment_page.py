@@ -4,7 +4,6 @@ import allure
 import pytest
 
 from pages.global_variables import PAYSYS
-from pages.payment_page import PaymentPage
 
 
 @allure.feature("Payment feature")
@@ -39,7 +38,7 @@ class TestPaymentPageDesign:
 class TestBasePayments:
     @pytest.mark.smoke
     def test_basic_payment(self, top_up_page):
-        with allure.step(f"Testing payment"):
+        with allure.step("Testing basic payment"):
             top_up_page.make_payment()
             top_up_page.payment_should_be_successful()
 
@@ -53,7 +52,7 @@ class TestPayments:
     @pytest.mark.skip(reason="problem with selector, fix later")
     @pytest.mark.parametrize("bonus", [True, False])
     def test_bonus_payment(self, top_up_page, bonus):
-        with allure.step(f"Testing payment"):
+        with allure.step(f"Testing payment, bonus = {bonus}"):
             top_up_page.select_bonus(bonus)
             top_up_page.make_payment()
             top_up_page.payment_should_be_successful()

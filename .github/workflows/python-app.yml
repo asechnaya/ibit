@@ -45,6 +45,8 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
+          sudo del allure-report
+          mkdir allure-report
           pytest --alluredir=allure-reports --browser_name=chrome test_login_page.py
 #          pytest --browser_name=chrome test_payment_page.py
       - name: Commit and Push The Results From Python Selenium Action
