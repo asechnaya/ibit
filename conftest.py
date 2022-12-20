@@ -65,7 +65,7 @@ def browser(request):
 
 @pytest.fixture(params=[('username1@name.ru', 'pass1'), ('username2@name.ru', 'pass2'),
                         ('username3@name.ru', 'pass3'), ('username4@name.ru', 'pass4'),
-                        ], ids=["username1", "username2", "username3",  "username4"])
+                        ], ids=["username1", "username2", "username3", "username4"])
 def user_pass(request):
     return request.param
 
@@ -73,7 +73,7 @@ def user_pass(request):
 @pytest.fixture(params=['en', 'ru', 'hi',
                         pytest.param('ch', marks=pytest.mark.xfail(reason='ch payment button doesnt react')),
                         pytest.param(6, marks=pytest.mark.xfail(reason='ko auth failed')), ],
-                        ids=['en', 'ru', 'hi', 'ch', 'ko'])
+                ids=['en', 'ru', 'hi', 'ch', 'ko'])
 def language(request):
     return request.param
 
@@ -90,4 +90,3 @@ def top_up_page(browser, user_pass, language):
         payment_page = PaymentPage(browser, browser.current_url)
         payment_page.open()
     return payment_page
-
