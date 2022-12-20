@@ -32,7 +32,6 @@ class TestPaymentPageDesign:
             top_up_page.bar_is_according_status(status_name)
 
 
-@pytest.mark.smoke
 @allure.feature("Payment feature")
 @allure.story("user should be able to top up his balance")
 @allure.title('Base payment features check')
@@ -40,24 +39,21 @@ class TestPayments:
 
     attempts = [1, 2]
 
-    def test_basic_payment(self, top_up_page, language):
-        with allure.step("Testing payment"):
-            top_up_page.should_be_payment_url()
+    @pytest.mark.smoke
+    @pytest.mark.parametrize("bonus", [True, False])
+    def test_basic_payment(self, top_up_page, language, bonus):
+        with allure.step(f"Testing payment for language = {language}"):
             top_up_page.unselect_bonus(False)
             top_up_page.make_payment()
-
-        with allure.step(f"Testing payment for language = {language}"):
-            top_up_page.should_be_payment_url()
-            top_up_page.unselect_bonus(False)
-            top_up_page.make_payment(language)
+            top_up_page.payment_should_be_successful(language)
 
     @pytest.mark.parametrize("cur", ["ru", "en", "ch"])
     def test_manual_payment_with_different_currencies(self, top_up_page, cur):
         with allure.step(f"Testing manual payment, currency = {cur}"):
             top_up_page.select_currency(cur)
             top_up_page.manually_enter_amount(502)
-            top_up_page.unselect_bonus(True)
             top_up_page.make_payment()
+            top_up_page.payment_should_be_successful()
 
     @pytest.mark.parametrize("ps_number", [1, 2, 3, 4,
                                            pytest.param(5, marks=pytest.mark.xfail(reason='bug: alert')),
@@ -71,6 +67,7 @@ class TestPayments:
         with allure.step(f"Testing manual payment, payment_system = {PAYSYS[ps_number]}"):
             top_up_page.select_ps(ps_number)
             top_up_page.make_payment()
+            top_up_page.payment_should_be_successful()
 
     @pytest.mark.xfail(reason="The second attempt always fails")
     def test_payment_with_qiwi(self, top_up_page):
@@ -79,3 +76,4 @@ class TestPayments:
             for i in self.attempts:
                 logging.info(f"Qiwi payment number {i}")
                 top_up_page.enter_phone_and_make_payment()
+                top_up_page.payment_should_be_successful()
