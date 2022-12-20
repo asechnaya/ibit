@@ -14,12 +14,13 @@
   that is translated as "well you are a tough guy"
 
 
-* Medium bugs [do not affect the functional]
+* Medium bugs [do not affect the functional or there is a workaround]
   * Password cannot be concealed [affects security]
   * The more you switch between languages the more slashes you obtain in the address link 
   [might have affect to the future functions, now just looks strange]
   * No possibility to register [no possibility to test new emails]
   * In indian version there is "message forget" text while restoring password
+  * On payment page if you right-click on "you get" element, then choose "Inspect" and switch to another status, there will be two sums (current and previous)
   * When restoring a password, the email address is not checked. Registered and unregistered users receive the same notification.
   * The same name applies to two separate payments (VISA, MasterCard, Maestro) [There should be a distinction here, since that confuses users.]
 
