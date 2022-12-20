@@ -19,6 +19,7 @@ logger = logging.getLogger('test login page')
 @pytest.mark.parametrize("language",
                          ["en", "ch", "ru", "hi", pytest.param("ko", marks=pytest.mark.xfail(reason='some bug')), ])
 class TestLoginPagePositiveCases:
+    @pytest.mark.smoke
     @Parametrization.parameters('user_email', 'user_password')
     @Parametrization.case('username1', 'username1@name.ru', 'pass1')
     @Parametrization.case('username2', 'username2@name.ru', 'pass2')
