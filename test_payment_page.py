@@ -51,13 +51,13 @@ class TestPayments:
             top_up_page.unselect_bonus(False)
             top_up_page.make_payment(language)
 
-    def test_manual_payment_with_different_currencies(self, top_up_page):
-        for cur in ["ru", "en", "ch"]:
-            with allure.step(f"Testing manual payment, currency = {cur}"):
-                top_up_page.select_currency(cur)
-                top_up_page.manually_enter_amount(502)
-                top_up_page.unselect_bonus(True)
-                top_up_page.make_payment()
+    @pytest.mark.parametrize("cur", ["ru", "en", "ch"])
+    def test_manual_payment_with_different_currencies(self, top_up_page, cur):
+        with allure.step(f"Testing manual payment, currency = {cur}"):
+            top_up_page.select_currency(cur)
+            top_up_page.manually_enter_amount(502)
+            top_up_page.unselect_bonus(True)
+            top_up_page.make_payment()
 
     @pytest.mark.parametrize("ps_number", [1, 2, 3, 4,
                                            pytest.param(5, marks=pytest.mark.xfail(reason='bug: alert')),
