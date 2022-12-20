@@ -27,7 +27,7 @@ class TestPaymentPageDesign:
     def test_switching_statuses(self, top_up_page, status_name):
         with allure.step(f"Switch to status {status_name}"):
             top_up_page.should_be_payment_url()
-            top_up_page.unselect_bonus(False)
+            # top_up_page.select_bonus(False)
             top_up_page.click_on_status_item(status_name)
             top_up_page.bar_is_according_status(status_name)
 
@@ -43,9 +43,10 @@ class TestPayments:
     @pytest.mark.parametrize("bonus", [True, False])
     def test_basic_payment(self, top_up_page, language, bonus):
         with allure.step(f"Testing payment for language = {language}"):
-            top_up_page.unselect_bonus(False)
+            top_up_page.select_bonus(bonus)
             top_up_page.make_payment()
             top_up_page.payment_should_be_successful(language)
+            top_up_page.select_bonus(bonus)
 
     @pytest.mark.parametrize("cur", ["ru", "en", "ch"])
     def test_manual_payment_with_different_currencies(self, top_up_page, cur):

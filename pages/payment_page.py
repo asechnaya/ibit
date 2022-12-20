@@ -84,7 +84,7 @@ class PaymentPage(BasePage):
         assert current_bar_color == BAR_COLOR[attribute], "Bar color is not correct"
         logger.info(f"status active item is {attribute}, bar's color is {BAR_COLOR[attribute]}")
 
-    def total_amount_is_correct(self, status: str, currency: str, bonus: bool = True):
+    def total_amount_is_correct(self, status: str = "gold", currency: str = "en", bonus: bool = True):
         """
         this function asserts text in the box with expected calculated sum for a status
         """
@@ -92,14 +92,20 @@ class PaymentPage(BasePage):
         expected_text = str(amount[status])
         amount_text = self.get_the_text(*PaymentPageLocators.TOTAL_AMOUNT)
         logger.info(f"total_amount_is_correct ({amount_text}) = {expected_text})")
-        assert amount_text == f"{expected_text}"
+        assert amount_text == f"${expected_text}"
 
-    def unselect_bonus(self, ischecked):
-        # Find a checkbox
-        checkbox = self.check_the_attribute(*PaymentPageLocators.BONUS_ACTIVE, "checked")
-        # if ischecked is True, then checkbox is selected. If ischecked is False then it should be unselected
-        if checkbox != ischecked:
+    def select_bonus(self, ischecked=False):
+        """
+
+        :param ischecked: is True, then checkbox is selected. If ischecked is False then it should be unselected
+        """
+        checkbox = self.check_the_attribute(*PaymentPageLocators.BONUS_CHECKBOX, "checked")
+        print(checkbox)
+        if checkbox == ischecked:
             pass
+        else:
+            self.is_element_present(*PaymentPageLocators.BONUS_CHECKBOX)
+            self.click_the_button(*PaymentPageLocators.BONUS_CHECKBOX)
         logger.info(f"checkbox is {ischecked}")
 
     def manually_enter_amount(self, amount):

@@ -31,7 +31,7 @@ class PaymentPageLocators:
     CURRENCY_CH = (By.CSS_SELECTOR, "div.currency > div > rg-select > ul > li:nth-child(3)")
     AMOUNT = (By.CSS_SELECTOR, "#riot-app > div > amount-inputs > div > div.amount > input")
     PROCEED = (By.CLASS_NAME, "submit")
-    BONUS_ACTIVE = (By.CSS_SELECTOR, "label:nth-child(2)")
+    BONUS_CHECKBOX = (By.XPATH, "xpath=//div[@id='riot-app']/div/total/div/div/div/label")
     TOTAL_AMOUNT = (By.CSS_SELECTOR, ".you-get > .value")
     YOU_GET = (By.CSS_SELECTOR, "#riot-app > div > total > div > div.you-get > div.value")
 

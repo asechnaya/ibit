@@ -53,8 +53,10 @@ class BasePage:
             logger.error(f"The element {what} is not interactable")
 
     def click_the_button(self, how, what):
-        self.element_exists(how, what)
-        self.browser.find_element(how, what).click()
+        try:
+            self.element_exists(how, what).click()
+        except ElementNotInteractableException:
+            logger.error(f"{what} element is not clickable")
 
     def get_the_text(self, how, what):
         self.element_exists(how, what)
