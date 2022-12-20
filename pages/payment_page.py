@@ -18,10 +18,6 @@ class PaymentPage(BasePage):
     def should_be_payment_url(self):
         assert 'payment' in self.browser.current_url, "payment url is not found"
 
-    def full_payment_url_is_correct(self):
-        assert 'https://ibitcy.com/interview/qa/mobile-deposit/?lang=en#/payment' in self.browser.current_url, \
-            "full payment url is not correct"
-
     def should_be_payment_box(self):
         assert self.is_element_present(*PaymentPageLocators.PAYMENT_BOX), 'Payment choice is not presented'
 
@@ -32,9 +28,10 @@ class PaymentPage(BasePage):
         assert self.is_element_present(*PaymentPageLocators.TOTAL_AMOUNT), 'total amount is not presented'
 
     def should_be_description_of_privileges_text(self):
+        # Check is the link is correct and there is a description
         self.click_the_button(*PaymentPageLocators.TITLE)
         assert '#/pricing?' not in self.browser.current_url, \
-            'No description of status privileges and bonus program conditions '
+            'No description of status privileges program conditions '
 
     def should_be_bonus_link(self):
         assert self.is_element_present(*PaymentPageLocators.BONUS), "BONUS link is not presented"
@@ -43,7 +40,7 @@ class PaymentPage(BasePage):
         # Check is the link is correct and there is a description
         self.click_the_button(*PaymentPageLocators.BONUS)
         assert '#/pricing?' not in self.browser.current_url, \
-            'No description of status privileges and bonus program conditions '
+            'No description of bonus program conditions '
 
     def should_be_all_statuses(self):
         assert self.is_element_present(*PaymentPageLocators.ITEM_VIP), "VIP status is not presented"
@@ -73,10 +70,10 @@ class PaymentPage(BasePage):
         logger.info(f"status active item {item} is {status_item.get_attribute('active')}")
         assert status_item.get_attribute("active") == item, "Item is not illuminated"
 
-    def make_payment(self, language: str = "en"):
-        # make a payment
+    def make_payment(self):
         self.click_the_button(*PaymentPageLocators.PROCEED)
-        # Check the payment process
+
+    def payment_should_be_successful(self, language: str = "en"):
         assert self.get_the_text(*FinalPageLocators.PROCESSING_TEXT) == FINAL_TEXT[language]
         self.click_the_button(*FinalPageLocators.BACK_LINK)
 
@@ -126,13 +123,10 @@ class PaymentPage(BasePage):
         payment_sys_number = ps_set(num)
         self.click_the_button(*payment_sys_number)
 
-    def enter_phone_and_make_payment(self, language: str = "en", number: str = " 912 345-23-12"):
+    def enter_phone_and_make_payment(self, number: str = " 912 345-23-12"):
         self.click_the_button(*PaymentPageLocators.PROCEED)
         # input_number
         self.click_the_button(*FinalPageLocators.PHONE)
         self.fill_the_input(*FinalPageLocators.PHONE, number)
         time.sleep(1)
         self.click_the_button(*FinalPageLocators.PHONE_PROCEED)
-        # Check the payment process
-        assert self.get_the_text(*FinalPageLocators.PROCESSING_TEXT) == FINAL_TEXT[language]
-        self.click_the_button(*FinalPageLocators.BACK_LINK)
