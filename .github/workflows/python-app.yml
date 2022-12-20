@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v3
         with:
-          python-version: "3.8"
+          python-version: "3.9"
       - name: Installing package list
         run: apt list --installed
       - name: Removing previous chrome instances on runner
@@ -45,7 +45,6 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-#          sudo rm -r allure-reports
           pytest --browser_name=chrome test_login_page.py
 #          pytest --browser_name=chrome test_payment_page.py
       - name: Commit and Push The Results From Python Selenium Action
