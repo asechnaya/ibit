@@ -9,9 +9,9 @@
 ### To run tests:
 
 ```
-pytest --alluredir=allure-reports --browser_name=chrome test_login_page.py 
+pytest --alluredir=allure-reports --browser_name=chrome -v test_login_page.py 
 
-pytest --alluredir=allure-reports --browser_name=firefox test_payment_page.py 
+pytest --alluredir=allure-reports --browser_name=firefox -v test_payment_page.py 
 ``` 
 or to launch init.sh
 

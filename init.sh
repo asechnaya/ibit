@@ -18,8 +18,8 @@ mkdir report
 mkdir drivers
 
 # run tests
-pytest --alluredir=allure-reports test_login_page.py
-pytest --alluredir=allure-reports test_payment_page.py
+pytest --alluredir=allure-reports -v test_login_page.py
+pytest --alluredir=allure-reports -v test_payment_page.py
 
 # make reports
 allure serve allure-reports
